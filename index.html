@@ -4,8 +4,26 @@
   <title>Hello, world!</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="res/style.css" />
+  <script type="text/javascript" src="res/script.js"></script>
   <meta name="description" content="" />
-  <link rel="icon" href="img/favicon.png">
+  <link rel="icon" href="res/favicon-128.png">
+  <link rel="icon" href="res/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="res/favicon-57.png" sizes="57x57">
+  <link rel="icon" href="res/favicon-76.png" sizes="76x76">
+  <link rel="icon" href="res/favicon-96.png" sizes="96x96">
+  <link rel="icon" href="res/favicon-128.png" sizes="128x128">
+  <link rel="icon" href="res/favicon-192.png" sizes="192x192">
+  <link rel="icon" href="res/favicon-228.png" sizes="228x228">
+
+  <!-- Android -->
+  <link rel="shortcut icon" href="res/favicon-196.png" sizes="196x196">
+
+  <!-- iOS -->
+  <link rel="apple-touch-icon" href="res/favicon-120.png" sizes="120x120">
+  <link rel="apple-touch-icon" href="res/favicon-152.png" sizes="152x152">
+  <link rel="apple-touch-icon" href="res/favicon-180.png" sizes="180x180">
+
   <meta name="theme-color" content="">
   <meta property="og:title" content="" />
   <meta property="og:description" content="" />
@@ -16,8 +34,51 @@
   <meta name="twitter:description" content="">
   <meta name="twitter:image" content="">
 </head>
-<body>
-  <h1>Hello, world!</h1>
-  <p>This is the index.html file</p>
+<body onload="focusInput(); throttledRender()">
+  <script type="text/javascript">
+    var time = new Date();
+    console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+    function isNumberKey(evt){
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode == 46 || charCode > 31 && (charCode < 48 || charCode > 57)){
+          evt.preventDefault();
+          return false;
+      }
+      return true;
+  }
+  </script>
+  <div id="content">
+    <div id="description" class="hidden" onmousedown="descriptionMouseDown()">
+      <a onclick="expandDescription()" id="expand">Read more</a>
+      <a onclick="closeDescription()" id="close">Close</a>
+      <p>The Big Mac index is a way to compare the value of currencies  
+        but can also be a simple way to compare the value of the local currency over the years.</p>
+      <p><a href="https://www.economist.com/big-mac-index" target="blank">Read more</a></p>  
+      <p>The inflation affects the value of your money. Workers will demand more salary and the 
+        companies will need to increase their income by adjusting the prices which increases the 
+        household total expenses.</p>
+      <p>This is a simplified way of looking at it since new demands and optimization of current 
+        production lines and alterned ways of living will shift how the hoseholds spends their 
+        money.</p>
+      <p>So a simple way to compare the value of your money in history is by converting it to a solid 
+        product. The BigMac is a standard global product often produced locally to the market and is 
+        therefore a good candidate for comparission.</p>
+    </div>
+    <div id="header">
+      <h1>M</h1>
+      <h2>BigMac calculator</h2>
+      <label>Country</label>
+      <select id="country"><option value="2021">Sweden</option></select>
+      <label>Year</label>
+      <select id="year"><option value="2021">2021</option></select>
+      <input type="number" min="0" max="999999999" pattern="\\d+" id="amount" value="54.8"
+      onkeypress="isNumberKey(event)" placeholder="Enter a value" onkeydown="throttledRender()" 
+      onkeyup="throttledRender()" onchange="render()" />
+    </div>
+    <div id="result">
+      <span id="counter_label">0</span>
+      <div id="burgers"></div>
+    </div>
+  </div>
 </body>
 </html>
